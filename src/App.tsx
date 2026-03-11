@@ -119,7 +119,7 @@ const Hero = () => {
       {/* Parallax Background */}
       <motion.div 
         style={{ y: bgY }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 will-change-transform"
       >
         <div 
           className="absolute inset-0 bg-[url('/hero-bg.jpg')] bg-cover bg-center opacity-30"
@@ -130,13 +130,13 @@ const Hero = () => {
 
       <motion.div 
         style={{ y: textY, opacity }}
-        className="relative z-10 max-w-5xl mx-auto px-6 text-center -mt-20 md:-mt-32"
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center -mt-20 md:-mt-32 will-change-transform"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="mb-10 mt-[10vh] inline-block"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 mt-[10vh] inline-block will-change-transform"
         >
           <div className="relative">
             <motion.div 
@@ -145,12 +145,15 @@ const Hero = () => {
                 opacity: [0.1, 0.2, 0.1]
               }}
               transition={{ repeat: Infinity, duration: 4 }}
-              className="absolute -inset-20 bg-cyan-500/20 blur-[100px] rounded-full" 
+              className="absolute -inset-20 bg-cyan-500/20 blur-[100px] rounded-full will-change-transform" 
             />
             <img 
               src="/Logohero.png" 
               alt="MDrip Logo" 
               className="w-[260px] md:w-[345px] mx-auto relative drop-shadow-[0_0_50px_rgba(0,255,255,0.6)]"
+              fetchPriority="high"
+              loading="eager"
+              decoding="sync"
               onError={(e) => {
                 // Fallback if Logohero.png isn't available
                 e.currentTarget.src = 'https://picsum.photos/seed/medical/400/400';
@@ -162,8 +165,8 @@ const Hero = () => {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight"
+          transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight will-change-transform"
         >
           Premium IV Therapy <br />
           <span className="text-gradient italic font-serif">At Your Doorstep</span>
@@ -172,8 +175,8 @@ const Hero = () => {
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="text-xl md:text-2xl text-white/60 mb-10 max-w-2xl mx-auto font-light"
+          transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-xl md:text-2xl text-white/60 mb-10 max-w-2xl mx-auto font-light will-change-transform"
         >
           Experience professional medical hydration and wellness treatments in the comfort of your home.
         </motion.p>
@@ -181,8 +184,8 @@ const Hero = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 will-change-transform"
         >
           <a 
             href="https://wa.me/573218210894"
@@ -345,6 +348,8 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             style={{ x: translateX, y: translateY, scale: 1.15 }}
             referrerPolicy="no-referrer"
+            fetchPriority={i < 4 ? "high" : "auto"}
+            loading={i < 4 ? "eager" : "lazy"}
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60 pointer-events-none" />
@@ -623,7 +628,7 @@ const Services = () => {
     {
       title: "Myers Cocktail",
       price: "$135",
-      image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=800",
+      image: "/Animacionverde.webp",
       tags: ["CALCIUM GLUCONATE", "B-COMPLEX", "VITAMIN C"],
       description: "Boost your overall wellness with a potent blend of Calcium Gluconate, B-Complex, and Vitamin C, designed to support energy levels, immune function, and overall health."
     },

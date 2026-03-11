@@ -343,7 +343,7 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
           />
         ) : (
           <motion.img 
-            src={isHovered && s.gif ? `${s.gif}?t=${gifKey}` : s.image} 
+            src={isHovered && s.gif ? s.gif : s.image} 
             alt={s.title} 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             style={{ x: translateX, y: translateY, scale: 1.15 }}
@@ -614,28 +614,28 @@ const Services = () => {
     {
       title: "Immunity Boost",
       price: "$130",
-      image: "/Animacionamarilla.webp",
+      video: "/Animacionamarilla.webm",
       tags: ["Vitamin C", "Electrolytes", "Antioxidants"],
       description: "Strengthen your body’s natural defenses with a treatment centered around high-dose Vitamin C, a potent antioxidant known for its role in immune health, cellular protection, and inflammation reduction. Perfect for staying healthy during travel or when feeling run down."
     },
     {
       title: "The Hangover Cure",
       price: "$120",
-      image: "/Animacionazul.webp",
+      video: "/Animacionazul.webm",
       tags: ["RINGER LACTATE", "B-Complex", "THIAMINE"],
       description: "Recover quickly from a night out with our specialized hangover treatment, designed to rehydrate, replenish nutrients, and soothe nausea."
     },
     {
       title: "Myers Cocktail",
       price: "$135",
-      image: "/Animacionverde.webp",
+      video: "/Animacionverde.webm",
       tags: ["CALCIUM GLUCONATE", "B-COMPLEX", "VITAMIN C"],
       description: "Boost your overall wellness with a potent blend of Calcium Gluconate, B-Complex, and Vitamin C, designed to support energy levels, immune function, and overall health."
     },
     {
       title: "Ultra Recovery",
       price: "$125",
-      image: "/Animacionmorada.webp",
+      video: "/Animacionmorada.webm",
       tags: ["THIAMINE", "VITAMIN B2", "VITAMIN B6", "VITAMIN B12", "ELECTROLYTES", "RINGER LACTATE"],
       description: "Accelerate your recovery with a comprehensive blend of Thiamine, Vitamin B2, Vitamin B6, Vitamin B12, Electrolytes, and Ringer Lactate, designed to replenish essential nutrients and support optimal performance."
     }

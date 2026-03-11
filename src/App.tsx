@@ -92,7 +92,7 @@ const Navbar = () => {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden bg-white/90 backdrop-blur-2xl absolute top-20 left-0 w-full p-6 flex flex-col gap-4 border-b border-white/20 shadow-2xl"
+          className="md:hidden bg-white/90 backdrop-blur-2xl absolute top-20 left-0 w-full p-6 flex flex-col gap-4 border-b border-white/20 shadow-2xl will-change-[transform,opacity]"
         >
           {['Services', 'How it Works', 'About', 'Contact'].map((item) => (
             <a 
@@ -121,16 +121,21 @@ const Navbar = () => {
 
 const Hero = () => {
   const { scrollYProgress } = useScroll();
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  
+  const bgY = useTransform(smoothProgress, [0, 1], ["0%", "50%"]);
+  const textY = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+  const opacity = useTransform(smoothProgress, [0, 0.5], [1, 0]);
+  const logoScale = useTransform(smoothProgress, [0, 0.3], [1, 0.6]);
+  const logoRotate = useTransform(smoothProgress, [0, 0.3], [0, -15]);
+  const logoY = useTransform(smoothProgress, [0, 0.3], [0, 50]);
 
   return (
     <section className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
       {/* Parallax Background */}
       <motion.div 
         style={{ y: bgY }}
-        className="absolute inset-0 z-0 will-change-transform"
+        className="absolute inset-0 z-0 will-change-transform transform-gpu"
       >
         <div 
           className="absolute inset-0 bg-[url('/hero-bg.webp')] bg-cover bg-center opacity-30"
@@ -141,13 +146,14 @@ const Hero = () => {
 
       <motion.div 
         style={{ y: textY, opacity }}
-        className="relative z-10 max-w-5xl mx-auto px-6 text-center -mt-20 md:-mt-32 will-change-transform"
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center -mt-20 md:-mt-32 will-change-[transform,opacity] transform-gpu"
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10 mt-[10vh] inline-block will-change-transform"
+          style={{ scale: logoScale, rotate: logoRotate, y: logoY }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 mt-[10vh] inline-block will-change-[transform,opacity] transform-gpu"
         >
           <div className="relative">
             <motion.div 
@@ -156,7 +162,7 @@ const Hero = () => {
                 opacity: [0.1, 0.2, 0.1]
               }}
               transition={{ repeat: Infinity, duration: 4 }}
-              className="absolute -inset-20 bg-cyan-500/20 blur-[100px] rounded-full will-change-transform" 
+              className="absolute -inset-20 bg-cyan-500/20 blur-[100px] rounded-full will-change-[transform,opacity] transform-gpu" 
             />
             <img 
               src="/Logohero.webp" 
@@ -261,7 +267,7 @@ const Features = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
-              className="p-8 rounded-3xl glass hover:border-[#00ffff]/30 transition-all group"
+              className="p-8 rounded-3xl glass hover:border-[#00ffff]/30 transition-all group will-change-transform transform-gpu"
             >
               <div className="w-16 h-16 bg-[#008080]/10 rounded-2xl flex items-center justify-center mb-6 text-[#00ffff] group-hover:scale-110 transition-transform">
                 {f.icon}
@@ -373,7 +379,7 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
           <motion.video
             ref={videoRef}
             src={s.video}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform transform-gpu"
             style={{ x: translateX, y: translateY, scale: 1.15 }}
             muted
             loop
@@ -384,7 +390,7 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
           <motion.img 
             src={isHovered && s.gif ? s.gif : s.image} 
             alt={s.title} 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform transform-gpu"
             style={{ x: translateX, y: translateY, scale: 1.15 }}
             referrerPolicy="no-referrer"
             fetchPriority={i < 4 ? "high" : "auto"}
@@ -398,13 +404,13 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
         {s.title === "Beauty & Glow" && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" style={{ transform: "translateZ(30px) translate(-50%, -50%)" }}>
             {/* Soft Emerald Aura */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#10b981]/15 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#10b981]/15 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 will-change-opacity" />
             
             {/* Floating Sparkles */}
             {[...Array(6)].map((_, i) => (
               <div 
                 key={`sparkle-${i}`}
-                className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:animate-[drift-upwards_3s_ease-in-out_infinite]"
+                className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:animate-[drift-upwards_3s_ease-in-out_infinite] will-change-[transform,opacity] transform-gpu"
                 style={{
                   left: `${Math.random() * 100 - 50}px`,
                   top: `${Math.random() * 100 - 50}px`,
@@ -420,13 +426,13 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
         {s.title === "Athletic Recovery" && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" style={{ transform: "translateZ(30px) translate(-50%, -50%)" }}>
             {/* Soft Purple Aura */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#8b5cf6]/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#8b5cf6]/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 will-change-opacity" />
             
             {/* Floating Sparkles */}
             {[...Array(6)].map((_, i) => (
               <div 
                 key={`sparkle-purple-${i}`}
-                className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:animate-[drift-upwards_3s_ease-in-out_infinite]"
+                className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:animate-[drift-upwards_3s_ease-in-out_infinite] will-change-[transform,opacity] transform-gpu"
                 style={{
                   left: `${Math.random() * 100 - 50}px`,
                   top: `${Math.random() * 100 - 50}px`,
@@ -460,7 +466,7 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
                 }}
               >
                 <div 
-                  className="opacity-0 group-hover:opacity-100 transition-all duration-1000 pointer-events-auto translate-y-8 group-hover:translate-y-0"
+                  className="opacity-0 group-hover:opacity-100 transition-all duration-1000 pointer-events-auto translate-y-8 group-hover:translate-y-0 will-change-[transform,opacity] transform-gpu"
                   style={{ transitionDelay: `${idx * 200}ms`, transitionTimingFunction: 'cubic-bezier(0.2, 0.8, 0.2, 1)' }}
                 >
                   <div 
@@ -616,11 +622,12 @@ const AboutUs = () => {
             className="relative"
           >
             <div className="aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 relative group">
-              <motion.div style={{ y: imgY, height: "130%", top: "-15%", position: "absolute", width: "100%" }}>
+              <motion.div style={{ y: imgY, height: "130%", top: "-15%", position: "absolute", width: "100%" }} className="will-change-transform transform-gpu">
                 <img 
                   src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=1000" 
                   alt="Medical Professional in Medellín" 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100"
+                  loading="lazy"
                 />
               </motion.div>
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
@@ -757,14 +764,15 @@ const HowItWorks = () => {
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 aspect-[4/5]"
+              className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 aspect-[4/5] will-change-transform transform-gpu"
             >
-              <motion.div style={{ y: imgY, height: "130%", top: "-15%", position: "absolute", width: "100%" }}>
+              <motion.div style={{ y: imgY, height: "130%", top: "-15%", position: "absolute", width: "100%" }} className="will-change-transform transform-gpu">
                 <img 
-                  src="/Outroweb.jpg" 
+                  src="/Outroweb.webp" 
                   alt="Home Care" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </motion.div>
             </motion.div>

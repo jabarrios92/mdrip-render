@@ -51,7 +51,7 @@ const Navbar = () => {
             className="relative h-14 w-14 flex items-center justify-center"
           >
             <img 
-              src="/logo.png" 
+              src="/logo.webp" 
               alt="MDRIP Logo" 
               className="h-full w-full object-contain mix-blend-screen brightness-125 contrast-125 drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]"
               onError={(e) => {
@@ -133,7 +133,7 @@ const Hero = () => {
         className="absolute inset-0 z-0 will-change-transform"
       >
         <div 
-          className="absolute inset-0 bg-[url('/hero-bg.jpg')] bg-cover bg-center opacity-30"
+          className="absolute inset-0 bg-[url('/hero-bg.webp')] bg-cover bg-center opacity-30"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/50 to-[#0a0a0a]" />
@@ -159,7 +159,7 @@ const Hero = () => {
               className="absolute -inset-20 bg-cyan-500/20 blur-[100px] rounded-full will-change-transform" 
             />
             <img 
-              src="/Logohero.png" 
+              src="/Logohero.webp" 
               alt="MDrip Logo" 
               className="w-[260px] md:w-[345px] mx-auto relative drop-shadow-[0_0_50px_rgba(0,255,255,0.6)]"
               fetchPriority="high"

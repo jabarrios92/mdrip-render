@@ -635,7 +635,7 @@ const Services = () => {
     {
       title: "Ultra Recovery",
       price: "$125",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800",
+      image: "/Animacionmorada.webp",
       tags: ["THIAMINE", "VITAMIN B2", "VITAMIN B6", "VITAMIN B12", "ELECTROLYTES", "RINGER LACTATE"],
       description: "Accelerate your recovery with a comprehensive blend of Thiamine, Vitamin B2, Vitamin B6, Vitamin B12, Electrolytes, and Ringer Lactate, designed to replenish essential nutrients and support optimal performance."
     }

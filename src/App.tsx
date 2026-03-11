@@ -125,6 +125,11 @@ const Hero = () => {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  
+  // Logo specific scroll animations
+  const logoScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.7]);
+  const logoRotate = useTransform(scrollYProgress, [0, 0.3], [0, -10]);
+  const logoBlur = useTransform(scrollYProgress, [0, 0.3], [0, 10]);
 
   return (
     <section className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
@@ -150,7 +155,15 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 mt-[10vh] inline-block will-change-transform"
         >
-          <div className="relative">
+          <motion.div 
+            style={{ 
+              scale: logoScale, 
+              rotate: logoRotate,
+              filter: `blur(${logoBlur}px)`,
+              transform: "translateZ(0)"
+            }}
+            className="relative"
+          >
             <motion.div 
               animate={{ 
                 scale: [1, 1.2, 1],
@@ -171,7 +184,7 @@ const Hero = () => {
                 e.currentTarget.src = 'https://picsum.photos/seed/medical/400/400';
               }}
             />
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.h1 
@@ -795,13 +808,6 @@ const Services = () => {
 };
 
 const HowItWorks = () => {
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-
   const steps = [
     {
       num: "01",
@@ -827,48 +833,30 @@ const HowItWorks = () => {
 
   return (
     <section id="how-it-works" className="py-24 bg-white/5 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">How it Works</h2>
-            <div className="space-y-12">
-              {steps.map((step, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="flex gap-6 will-change-[transform,opacity]"
-                  style={{ transform: "translateZ(0)" }}
-                >
-                  <span className="text-4xl font-serif italic text-[#00ffff]/30 font-bold">{step.num}</span>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                    <p className="text-white/50">{step.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          <div className="relative" ref={ref}>
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">How it Works</h2>
+          <p className="text-white/50 max-w-xl mx-auto">Professional medical care delivered to your doorstep in four simple steps.</p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-12">
+          {steps.map((step, i) => (
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-cyan-500/10 aspect-[4/5] will-change-[transform,opacity]"
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="flex gap-6 p-8 rounded-3xl glass border border-white/5 will-change-[transform,opacity]"
               style={{ transform: "translateZ(0)" }}
             >
-              <motion.div style={{ y: imgY, height: "130%", top: "-15%", position: "absolute", width: "100%", transform: "translateZ(0)" }} className="will-change-transform">
-                <img 
-                  src="/Outroweb.webp" 
-                  alt="Home Care" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </motion.div>
+              <span className="text-4xl font-serif italic text-[#00ffff]/30 font-bold">{step.num}</span>
+              <div className="text-left">
+                <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+              </div>
             </motion.div>
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#008080]/20 blur-3xl rounded-full z-0" />
-            <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#00ffff]/10 blur-3xl rounded-full z-0" />
-          </div>
+          ))}
         </div>
       </div>
     </section>

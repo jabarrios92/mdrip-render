@@ -356,17 +356,6 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60 pointer-events-none" />
         
         {/* Elegant Aura Effect for Blue Bag */}
-        {s.title === "The Hangover Cure" && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" style={{ transform: "translateZ(30px) translate(-50%, -50%)" }}>
-            {/* Smooth Glowing Aura */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#00ffff]/20 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            
-            {/* Elegant Ripples */}
-            <div className="absolute top-1/2 left-1/2 w-32 h-32 border border-[#00ffff]/30 rounded-full opacity-0 group-hover:animate-[ping_4s_cubic-bezier(0.1,0.8,0.3,1)_infinite]" style={{ transform: "translate(-50%, -50%)" }} />
-            <div className="absolute top-1/2 left-1/2 w-32 h-32 border border-[#008080]/30 rounded-full opacity-0 group-hover:animate-[ping_4s_cubic-bezier(0.1,0.8,0.3,1)_infinite_1.5s]" style={{ transform: "translate(-50%, -50%)" }} />
-          </div>
-        )}
-
         {/* Radiant Glow Effect for Beauty & Glow */}
         {s.title === "Beauty & Glow" && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" style={{ transform: "translateZ(30px) translate(-50%, -50%)" }}>
@@ -383,28 +372,6 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
                   top: `${Math.random() * 100 - 50}px`,
                   animationDelay: `${Math.random() * 2}s`,
                   boxShadow: '0 0 8px 2px rgba(16, 185, 129, 0.6)'
-                }}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Radiant Glow Effect for Immunity Boost */}
-        {s.title === "Immunity Boost" && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" style={{ transform: "translateZ(30px) translate(-50%, -50%)" }}>
-            {/* Soft Orange Aura */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#ff8c00]/15 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            
-            {/* Floating Sparkles */}
-            {[...Array(6)].map((_, i) => (
-              <div 
-                key={`sparkle-orange-${i}`}
-                className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:animate-[drift-upwards_3s_ease-in-out_infinite]"
-                style={{
-                  left: `${Math.random() * 100 - 50}px`,
-                  top: `${Math.random() * 100 - 50}px`,
-                  animationDelay: `${Math.random() * 2}s`,
-                  boxShadow: '0 0 8px 2px rgba(255, 140, 0, 0.6)'
                 }}
               />
             ))}
@@ -435,7 +402,6 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
 
         {/* Floating Ingredients */}
         {s.ingredients && s.ingredients.map((ing: string, idx: number) => {
-          const isBlueBag = s.title === "The Hangover Cure";
           const isBeautyGlow = s.title === "Beauty & Glow";
 
           if (isBeautyGlow) {
@@ -465,53 +431,6 @@ const ServiceCard: React.FC<{ s: any, i: number }> = ({ s, i }) => {
                   >
                     <span className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] tracking-wider">{ing}</span>
                     <div className="absolute inset-0 rounded-full border border-white/20 opacity-0 group-hover:animate-[ping_3s_ease-in-out_infinite]" style={{ animationDelay: `${idx * 0.5}s` }} />
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-          if (isBlueBag) {
-            const sidePositions = [
-              { right: '5%', top: '20%' },
-              { left: '5%', top: '40%' },
-              { right: '10%', top: '65%' },
-              { left: '10%', bottom: '15%' },
-            ];
-            const pos = sidePositions[idx % sidePositions.length];
-
-            return (
-              <div 
-                key={ing}
-                className="absolute z-20 pointer-events-none"
-                style={{ 
-                  ...pos,
-                  transform: `translateZ(${40 + idx * 15}px)`
-                }}
-              >
-                <div 
-                  className="opacity-0 group-hover:opacity-100 transition-all duration-1000 pointer-events-auto translate-y-12 group-hover:translate-y-0"
-                  style={{ transitionDelay: `${idx * 150}ms`, transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
-                >
-                  {/* Subtle Splash Ring */}
-                  <div 
-                    className="absolute top-1/2 left-1/2 w-16 h-16 border border-[#00ffff]/60 rounded-full opacity-0 group-hover:animate-[splash-ring_1.2s_cubic-bezier(0.1,0.8,0.3,1)_forwards]"
-                    style={{ animationDelay: `${idx * 0.15 + 0.4}s` }}
-                  />
-                  
-                  {/* Tiny rising bubbles */}
-                  <div className="absolute -top-6 left-1/4 w-2 h-2 rounded-full bg-white/40 opacity-0 group-hover:animate-[drift-upwards_2s_ease-in-out_infinite]" style={{ animationDelay: `${idx * 0.3 + 0.5}s` }} />
-                  <div className="absolute -bottom-4 right-1/4 w-1.5 h-1.5 rounded-full bg-[#00ffff]/40 opacity-0 group-hover:animate-[drift-upwards_2.5s_ease-in-out_infinite]" style={{ animationDelay: `${idx * 0.3 + 0.2}s` }} />
-
-                  <div 
-                    className="animate-float"
-                    style={{ animationDelay: `${idx * 0.4}s` }}
-                  >
-                    <div 
-                      className="liquid-blob water-droplet relative text-white text-[11px] font-bold px-5 py-3 whitespace-nowrap hover:scale-110 transition-transform duration-300 cursor-pointer flex items-center justify-center"
-                    >
-                      <span className="relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wider">{ing}</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -696,8 +615,7 @@ const Services = () => {
     {
       title: "Immunity Boost",
       price: "$130",
-      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800",
-      video: "/animarilla.mp4",
+      image: "/Animacionamarilla.webp",
       tags: ["Vitamin C", "Electrolytes", "Antioxidants"],
       description: "Strengthen your body’s natural defenses with a treatment centered around high-dose Vitamin C, a potent antioxidant known for its role in immune health, cellular protection, and inflammation reduction. Perfect for staying healthy during travel or when feeling run down."
     },
@@ -705,8 +623,8 @@ const Services = () => {
       title: "The Hangover Cure",
       price: "$120",
       image: "/prueba1.png",
+      video: "/Animacionazul.mp4",
       tags: ["RINGER LACTATE", "B-Complex", "THIAMINE"],
-      ingredients: ["Vitamina B12", "Vitamina C", "Zinc", "Magnesio"],
       description: "Recover quickly from a night out with our specialized hangover treatment, designed to rehydrate, replenish nutrients, and soothe nausea."
     },
     {

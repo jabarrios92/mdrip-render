@@ -192,22 +192,16 @@ const Hero = () => {
           >
             Book Now
           </a>
-          <button className="w-full sm:w-auto px-10 py-4 glass hover:bg-white/10 text-white font-bold rounded-full transition-all duration-300 text-lg">
+          <a 
+            href="#about"
+            className="w-full sm:w-auto px-10 py-4 glass hover:bg-white/10 hover:shadow-[0_0_20px_rgba(0,255,255,0.4)] hover:border-[#00ffff]/50 hover:text-[#00ffff] text-white font-bold rounded-full transition-all duration-300 text-lg text-center"
+          >
             How it Works
-          </button>
+          </a>
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30"
-      >
-        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
-          <div className="w-1 h-2 bg-[#00ffff] rounded-full" />
-        </div>
-      </motion.div>
+
     </section>
   );
 };
@@ -622,8 +616,7 @@ const Services = () => {
     {
       title: "The Hangover Cure",
       price: "$120",
-      image: "/prueba1.png",
-      video: "/Animacionazul.mp4",
+      image: "/Animacionazul.webp",
       tags: ["RINGER LACTATE", "B-Complex", "THIAMINE"],
       description: "Recover quickly from a night out with our specialized hangover treatment, designed to rehydrate, replenish nutrients, and soothe nausea."
     },
@@ -631,7 +624,6 @@ const Services = () => {
       title: "Myers Cocktail",
       price: "$135",
       image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=800",
-      video: "/Animacionverde.mp4",
       tags: ["CALCIUM GLUCONATE", "B-COMPLEX", "VITAMIN C"],
       description: "Boost your overall wellness with a potent blend of Calcium Gluconate, B-Complex, and Vitamin C, designed to support energy levels, immune function, and overall health."
     },
@@ -639,7 +631,6 @@ const Services = () => {
       title: "Ultra Recovery",
       price: "$125",
       image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800",
-      video: "/moranimado.mp4",
       tags: ["THIAMINE", "VITAMIN B2", "VITAMIN B6", "VITAMIN B12", "ELECTROLYTES", "RINGER LACTATE"],
       description: "Accelerate your recovery with a comprehensive blend of Thiamine, Vitamin B2, Vitamin B6, Vitamin B12, Electrolytes, and Ringer Lactate, designed to replenish essential nutrients and support optimal performance."
     }
